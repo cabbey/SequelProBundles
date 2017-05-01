@@ -11,4 +11,4 @@ They are organized by type.
 5. Repeat for other bundles
 
 # Bugs? Feature Requests?
-Please [file them](https://github.com/cabbey/SequelProBundles/issues)!
+Please [file them](https://github.com/cabbey/SequelProBundles/issues)! (Or send pull requests!)
