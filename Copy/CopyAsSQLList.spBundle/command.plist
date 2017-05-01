@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>author</key>
+	<string>cabbey</string>
+	<key>category</key>
+	<string>Copy</string>
+	<key>command</key>
+	<string>cat | perl -e '
+
+# read first line to get the column names (header)
+$firstLine = &lt;&gt;;
+
+# bail if nothing could read
+if(!defined($firstLine)) {
+	exit 0;
+}
+
+# store the column names
+chomp($firstLine);
+$firstLine =~ s/\"/\\\"/g;  # escape "
+@header = split(/\t/, $firstLine);
+
+$h_cnt = $#header;     # number of columns
+
+if (0 != $h_cnt) {
+    print "too many columns.";
+    exit 0;
+}
+
+# get the column definitions
+open(META, $ENV{"SP_BUNDLE_INPUT_TABLE_METADATA"}) or die $!;
+@meta = ();
+while(&lt;META&gt;) {
+	chomp();
+	my @arr = split(/\t/);
+	push @meta, \@arr;
+}
+close(META);
+
+print "(";
+
+# read row data of each selected row
+$rowData=&lt;&gt;;
+while($rowData) {
+
+#	print "\t\t{\n";
+
+	# remove line ending
+	chomp($rowData);
+
+	# escape "
+	$rowData=~s/\"/\\\"/g;
+
+	# split column data which are tab-delimited
+	@data = split(/\t/, $rowData);
+	for($i=0; $i&lt;=$h_cnt; $i++) {
+
+		# re-escape \t and \n
+		$cellData = $data[$i];
+		$cellData =~ s/↵/\n/g;
+		$cellData =~ s/⇥/\t/g;
+
+#		print "\t\t\t\"$header[$i]\": ";
+
+		# check for data types
+		if($cellData eq "NULL") {
+			print "null";
+		}
+		elsif($meta[$i]-&gt;[1] eq "integer" || $meta[$i]-&gt;[1] eq "float") {
+			chomp($cellData);
+			$d = $cellData+0;
+			print "$d";
+		} else {
+			chomp($cellData);
+			print "\"$cellData\"";
+		}
+		
+	}
+
+
+	# get next row
+	$rowData=&lt;&gt;;
+
+	# suppress last ,
+	if($rowData) {
+		print ",";
+	}
+}
+
+print ")";
+
+' | __CF_USER_TEXT_ENCODING=$UID:0x8000100:0x8000100 pbcopy</string>
+	<key>contact</key>
+	<string>pnoorl@pnoorl.arg</string>
+	<key>defaultBundleWasModified</key>
+	<true/>
+	<key>description</key>
+	<string>Copies the selected rows in a data table as an SQL “in (…)” snippet into the pasteboard. Only realy expected to work on a *single column* of data. EG: the output of `select PK from TABLE where foo = bar....`
+
+Version 0.1
+
+Based on CopyAsJSON by Hans-Jörg Bibiko</string>
+	<key>input</key>
+	<string>selectedtablerowsastab</string>
+	<key>isDefaultBundle</key>
+	<true/>
+	<key>keyEquivalent</key>
+	<string></string>
+	<key>name</key>
+	<string>Copy as SQL In (...)</string>
+	<key>output</key>
+	<string>none</string>
+	<key>scope</key>
+	<string>datatable</string>
+	<key>tooltip</key>
+	<string>Copies the selected rows excluding any BLOB data as SQL formatted "in (...)" into the pasteboard</string>
+	<key>uuid</key>
+	<string>AD6132CE-EA28-4B76-A47E-1923A273674C</string>
+	<key>withblob</key>
+	<string>exclude</string>
+</dict>
+</plist>

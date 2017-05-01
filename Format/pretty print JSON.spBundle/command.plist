@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>author</key>
+	<string>Chris Abbey</string>
+	<key>category</key>
+	<string>Format</string>
+	<key>command</key>
+	<string>/usr/bin/json_pp</string>
+	<key>contact</key>
+	<string>pnoorl@pnoorl.arg</string>
+	<key>description</key>
+	<string>Pretty Print the JSON blob</string>
+	<key>input</key>
+	<string>entirecontent</string>
+	<key>keyEquivalent</key>
+	<string></string>
+	<key>name</key>
+	<string>Pretty Print JSON</string>
+	<key>output</key>
+	<string>replacecontent</string>
+	<key>scope</key>
+	<string>inputfield</string>
+	<key>tooltip</key>
+	<string>pretty print the json blob</string>
+	<key>uuid</key>
+	<string>8AB09DB5-AFD7-40F1-86AE-0AFD51FD0CAB</string>
+</dict>
+</plist>
