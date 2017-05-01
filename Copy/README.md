@@ -1,4 +1,4 @@
-# [cabbey's Sequel Pro bundles](..)
+# [cabbey's Sequel Pro bundles](https://github.com/cabbey/SequelProBundles)
 ## Copy tools
 
 These bundles show up in the Bundle Copy menu of query results.
